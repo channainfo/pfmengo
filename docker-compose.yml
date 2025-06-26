@@ -1,0 +1,91 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15
+    container_name: dating-app-postgres
+    environment:
+      POSTGRES_DB: dating_app
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - dating-app-network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: dating-app-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - dating-app-network
+
+  # MongoDB for Chat
+  mongodb:
+    image: mongo:6
+    container_name: dating-app-mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: dating_chat
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - dating-app-network
+
+  # Main API Application
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dating-app-api
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USERNAME: postgres
+      DB_PASSWORD: password
+      DB_NAME: dating_app
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      JWT_SECRET: your-super-secret-jwt-key-here
+      NODE_ENV: development
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+      - redis
+      - mongodb
+    volumes:
+      - .:/app
+      - /app/node_modules
+    networks:
+      - dating-app-network
+    command: npm run start:dev
+
+  # Adminer for database management
+  adminer:
+    image: adminer
+    container_name: dating-app-adminer
+    ports:
+      - "8080:8080"
+    networks:
+      - dating-app-network
+
+volumes:
+  postgres_data:
+  redis_data:
+  mongodb_data:
+
+networks:
+  dating-app-network:
+    driver: bridge
