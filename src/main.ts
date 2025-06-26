@@ -17,7 +17,18 @@ async function bootstrap() {
 
   // CORS configuration
   app.enableCors({
-    origin: process.env.CORS_ORIGIN || '*',
+    origin: [
+      'http://localhost:19006',
+      'http://localhost:19000',
+      'http://localhost:19001',
+      'http://localhost:19002',
+      'http://localhost:8081',
+      'http://localhost:3000',
+      'http://localhost:3001',
+      '*'
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
     credentials: true,
   });
 
@@ -39,8 +50,8 @@ async function bootstrap() {
   // Global prefix
   app.setGlobalPrefix('api/v1');
 
-  const port = process.env.PORT || 3000;
-  await app.listen(port);
+  const port = process.env.PORT || 3001;
+  await app.listen(port, '0.0.0.0');
   
   console.log(`🚀 Application running on: http://localhost:${port}`);
   console.log(`📚 API Documentation: http://localhost:${port}/api-docs`);

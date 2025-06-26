@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, Controller, Get } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ThrottlerModule } from '@nestjs/throttler';
@@ -12,6 +12,14 @@ import { EventsModule } from './modules/events/events.module';
 
 // Config
 import { getDatabaseConfig } from './config/database.config';
+
+@Controller()
+export class AppController {
+  @Get('health')
+  health() {
+    return { status: 'ok', timestamp: new Date().toISOString() };
+  }
+}
 
 @Module({
   imports: [
@@ -45,5 +53,6 @@ import { getDatabaseConfig } from './config/database.config';
     ProfilesModule,
     EventsModule,
   ],
+  controllers: [AppController],
 })
 export class AppModule {}

@@ -1,0 +1,16 @@
+{
+  "ignore_dirs": [
+    "node_modules",
+    ".git",
+    ".expo",
+    "ios/Pods",
+    "android/.gradle",
+    "android/build",
+    "ios/build",
+    ".vscode",
+    ".idea",
+    "coverage",
+    "dist",
+    ".cache"
+  ]
+}
