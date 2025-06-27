@@ -1,7 +1,26 @@
 {
   "permissions": {
     "allow": [
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(npm install)",
+      "Bash(lsof:*)",
+      "Bash(docker-compose:*)",
+      "Bash(touch:*)",
+      "Bash(rm:*)",
+      "Bash(npm run start:dev:*)",
+      "Bash(pkill:*)",
+      "Bash(npm start)",
+      "Bash(curl:*)",
+      "Bash(npx expo install:*)",
+      "Bash(ulimit:*)",
+      "Bash(docker stop:*)",
+      "Bash(telnet:*)",
+      "Bash(nc:*)",
+      "Bash(npm run build:*)",
+      "Bash(node:*)",
+      "Bash(sudo launchctl:*)",
+      "Bash(npm start:*)",
+      "Bash(brew install:*)"
     ],
     "deny": []
   }

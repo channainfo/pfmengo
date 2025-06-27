@@ -1,298 +1,291 @@
-# Three-Tier Dating App - NestJS Backend
+# Three-Tier Dating App
 
-A revolutionary dating application backend built with NestJS that addresses different relationship goals through three distinct tiers: Spark (casual dating), Connect (serious relationships), and Forever (marriage-focused).
+A revolutionary dating application that solves the problem of mixed intentions on traditional dating platforms by creating three distinct, purpose-built experiences for users with different relationship goals.
 
-## Project Overview
+## 🎯 Project Overview
 
-This NestJS backend provides a robust, scalable API for a dating app that solves the fundamental problem of mixed intentions on traditional dating platforms by creating separate, purpose-built experiences for users with different relationship goals.
+This dating app addresses the fundamental challenge of modern dating apps where users with vastly different intentions - from casual hookups to marriage - are mixed together, creating confusion and poor experiences. Our solution: **Three completely separate tiers** with distinct features, algorithms, and user experiences.
 
-### Key Features
+### The Three Tiers
 
-- **Three Distinct Tiers**: Separate API endpoints and business logic for casual dating, serious relationships, and marriage-minded individuals
-- **Tier-Based Authentication**: JWT authentication with tier-specific access controls
-- **Type-Safe Development**: Full TypeScript implementation with strict typing
-- **Swagger Documentation**: Auto-generated API documentation
-- **Database Agnostic**: TypeORM with PostgreSQL, easily configurable for other databases
-- **Security First**: Rate limiting, input validation, and secure authentication
-- **Microservices Ready**: Modular architecture that can be easily split into microservices
+- **🔥 Spark** - For casual dating and spontaneous connections
+- **💝 Connect** - For those seeking serious, meaningful relationships  
+- **💍 Forever** - For marriage-minded individuals ready for lifetime commitment
 
-## Documentation
+## 📚 Documentation
 
-### Design & Planning
-- [Wireframes & UI/UX Design](./docs/wireframes-ui-design.md) - Complete mobile wireframes and design system for all three tiers
-- [Go-to-Market Strategy](./docs/go-to-market-strategy.md) - Comprehensive launch plan, marketing strategies, and growth tactics
+### Planning & Design
+
+- [**Project Summary**](./docs/project-summary.md) - Executive overview and current status
+- [**Wireframes & UI/UX Design**](./docs/wireframes-ui-design.md) - Complete mobile wireframes and design system for all three tiers
+- [**Go-to-Market Strategy**](./docs/go-to-market-strategy.md) - Comprehensive launch plan, marketing strategies, and growth tactics
+- [**Features and Suggestions**](./docs/features-and-suggestions.md) - Complete feature list with implementation status and future suggestions
 
 ### Technical Documentation
-- [Technical Implementation](./docs/technical-implementation.md) - System architecture, microservices design, and technology stack
-- [Database Schema](./docs/database-schema.md) - Complete PostgreSQL, MongoDB, and Redis schemas with privacy compliance
 
-## Technology Stack
-
-### Backend Framework
-- **NestJS**: Modern Node.js framework with TypeScript
-- **TypeORM**: Object-Relational Mapping with PostgreSQL
-- **Passport.js**: Authentication middleware
-- **JWT**: JSON Web Tokens for stateless authentication
-- **Swagger**: API documentation generation
-
-### Database
-- **PostgreSQL**: Primary database for user data and relationships
-- **Redis**: Caching and session management
-- **MongoDB**: Real-time chat and messaging (planned)
-
-### Development Tools
-- **TypeScript**: Type-safe development
-- **ESLint + Prettier**: Code formatting and linting
-- **Jest**: Unit and integration testing
-- **Docker**: Containerization for development and deployment
-
-## Tier Overview
-
-### 🔥 Spark (Casual Dating)
-```typescript
-@RequiredTiers(TierType.SPARK)
-class SparkController {
-  // Tonight mode endpoints
-  // Event management
-  // Quick matching
-  // Stories and ephemeral content
-}
-```
-
-### 💝 Connect (Serious Relationships)
-```typescript
-@RequiredTiers(TierType.CONNECT)
-class ConnectController {
-  // Daily curated matches
-  // Compatibility scoring
-  // Video dating
-  // Deep conversation tools
-}
-```
-
-### 💍 Forever (Marriage-Focused)
-```typescript
-@RequiredTiers(TierType.FOREVER)
-class ForeverController {
-  // Comprehensive profiles
-  // Background verification
-  // Family planning tools
-  // Long-term compatibility
-}
-```
-
-## Getting Started
-
-### Prerequisites
-- Node.js 18+
-- PostgreSQL 14+
-- Redis 6+
-- Docker & Docker Compose (recommended)
-
-### Installation
-
-1. **Clone the repository**
-```bash
-git clone https://github.com/yourcompany/dating-app.git
-cd dating-app
-```
-
-2. **Install dependencies**
-```bash
-npm install
-```
-
-3. **Set up environment variables**
-```bash
-cp .env.example .env
-# Edit .env with your database credentials and API keys
-```
-
-4. **Start services with Docker**
-```bash
-docker-compose up -d
-```
-
-5. **Run database migrations**
-```bash
-npm run migration:run
-```
-
-6. **Start development server**
-```bash
-npm run start:dev
-```
+- [**Technical Implementation**](./docs/technical-implementation.md) - System architecture, microservices design, and technology stack
+- [**Database Schema**](./docs/database-schema.md) - Complete PostgreSQL, MongoDB, and Redis schemas with privacy compliance
+- [**Architecture Overview**](./docs/architecture-overview.md) - Detailed system architecture, data flows, and deployment strategies
 
 ### API Documentation
 
-Once the server is running, visit:
-- **Swagger UI**: http://localhost:3000/api-docs
-- **Health Check**: http://localhost:3000/api/v1/health
+- **Swagger UI**: Available at `http://localhost:3000/api-docs` when running the backend
+- **Postman Collection**: Coming soon
 
-## Project Structure
+## 🚀 Quick Start
 
-```
-src/
-├── auth/                    # Authentication module
-│   ├── dto/                # Data transfer objects
-│   ├── auth.controller.ts  # Auth endpoints
-│   ├── auth.service.ts     # Auth business logic
-│   ├── auth.module.ts      # Auth module definition
-│   └── jwt.strategy.ts     # JWT authentication strategy
-├── common/                  # Shared utilities
-│   ├── decorators/         # Custom decorators (tier restrictions)
-│   └── guards/             # Guards (JWT, tier access)
-├── config/                  # Configuration files
-│   └── database.config.ts  # Database configuration
-├── database/               # Database entities and migrations
-│   └── entities/           # TypeORM entities
-├── modules/                # Feature modules
-│   ├── users/              # User management
-│   ├── profiles/           # Profile management
-│   ├── matching/           # Matching algorithms
-│   └── events/             # Event management (Spark tier)
-├── types/                  # TypeScript type definitions
-│   └── tier.enum.ts        # Tier-related types
-├── app.module.ts           # Main application module
-└── main.ts                 # Application entry point
-```
+### Prerequisites
 
-## API Endpoints
+- Node.js 18+
+- PostgreSQL 14+
+- Redis 6+
+- MongoDB 5+
+- Docker & Docker Compose
+- iOS/Android development environment for mobile
 
-### Authentication
-```
-POST /api/v1/auth/register  # Register with tier selection
-POST /api/v1/auth/login     # Login and get JWT token
-```
+### Backend Setup (NestJS)
 
-### Profile Management
-```
-GET    /api/v1/profiles/me          # Get current user profile
-PUT    /api/v1/profiles/basic       # Update basic profile
-PUT    /api/v1/profiles/spark       # Update Spark-specific data
-PUT    /api/v1/profiles/connect     # Update Connect-specific data
-PUT    /api/v1/profiles/forever     # Update Forever-specific data
-POST   /api/v1/profiles/media       # Upload photos/videos
-DELETE /api/v1/profiles/media/:id   # Delete media
-```
-
-### Matching System
-```
-GET  /api/v1/matching/daily     # Daily matches (Connect/Forever)
-GET  /api/v1/matching/tonight   # Tonight mode (Spark only)
-POST /api/v1/matching/like      # Like a user
-POST /api/v1/matching/pass      # Pass on a user
-POST /api/v1/matching/super-like # Super like (premium)
-```
-
-### Events (Spark Tier Only)
-```
-GET  /api/v1/events           # Get nearby events
-GET  /api/v1/events/tonight   # Tonight mode events
-POST /api/v1/events/create    # Create new event
-POST /api/v1/events/:id/join  # Join event
-POST /api/v1/events/:id/leave # Leave event
-```
-
-## Tier-Based Access Control
-
-The application uses a sophisticated tier-based access control system:
-
-```typescript
-// Example: Decorator usage for tier restrictions
-@UseGuards(TierGuard)
-@RequiredTiers(TierType.SPARK, TierType.CONNECT)
-async someEndpoint() {
-  // Only accessible by Spark and Connect tier users
-}
-```
-
-### Tier Features Matrix
-
-| Feature | Spark | Connect | Forever |
-|---------|-------|---------|---------|
-| Basic Matching | ✅ | ✅ | ✅ |
-| Daily Curated Matches | ❌ | ✅ | ✅ |
-| Events System | ✅ | ✅ | ❌ |
-| Video Profiles | ❌ | ✅ | ✅ |
-| Background Checks | ❌ | ❌ | ✅ |
-| AI Relationship Coach | ❌ | ✅ | ✅ |
-| Detailed Compatibility | ❌ | ✅ | ✅ |
-
-## Development
-
-### Running Tests
 ```bash
-# Unit tests
-npm run test
+# Clone the repository
+git clone https://github.com/yourcompany/three-tier-dating.git
+cd three-tier-dating
 
-# Integration tests
-npm run test:e2e
+# Install backend dependencies
+npm install
 
-# Test coverage
-npm run test:cov
-```
+# Set up environment variables
+cp .env.example .env
+# Edit .env with your configuration
 
-### Database Operations
-```bash
-# Generate migration
-npm run migration:generate
+# Start services with Docker
+docker-compose up -d
 
-# Run migrations
+# Run database migrations
 npm run migration:run
 
-# Revert migration
-npm run migration:revert
+# Start development server
+npm run start:dev
 ```
 
-### Code Quality
+Backend will be available at `http://localhost:3000`
+
+### Frontend Setup (React Native)
+
 ```bash
-# Lint code
-npm run lint
+# Navigate to mobile directory
+cd mobile
 
-# Format code
-npm run format
+# Install dependencies
+npm install
 
-# Type checking
-npm run build
+# Start Expo development server
+npm start
+
+# Run on iOS
+npm run ios
+
+# Run on Android
+npm run android
 ```
 
-## Deployment
+## 🏗 Project Structure
 
-### Docker Production Build
-```bash
-# Build production image
-docker build -t dating-app-api .
-
-# Run production container
-docker run -p 3000:3000 dating-app-api
+```txt
+three-tier-dating/
+├── src/                    # NestJS backend source code
+│   ├── auth/              # Authentication module
+│   ├── modules/           # Feature modules
+│   ├── common/            # Shared utilities
+│   └── database/          # Database entities
+├── mobile/                 # React Native frontend
+│   ├── src/               # Mobile app source code
+│   └── assets/            # Mobile assets
+├── docs/                   # Documentation
+│   ├── wireframes-ui-design.md
+│   ├── technical-implementation.md
+│   ├── database-schema.md
+│   ├── go-to-market-strategy.md
+│   └── features-and-suggestions.md
+├── docker-compose.yml      # Docker services configuration
+└── README.md              # This file
 ```
 
-### Environment Variables
+## ✨ Key Features by Tier
 
-Key environment variables for production:
+### 🔥 Spark (Casual Dating)
 
-```env
-# Database
-DB_HOST=your-db-host
-DB_PASSWORD=your-secure-password
+- **Tonight Mode**: Find people available for spontaneous meetups
+- **Swipe Interface**: Quick, fun matching based on attraction
+- **Local Events**: Browse and join singles events nearby
+- **Ephemeral Stories**: 24-hour disappearing content
+- **Group Hangouts**: Connect with friend groups
+- **Vibe Matching**: Music and mood-based connections
 
-# Security
-JWT_SECRET=your-super-secret-jwt-key
+### 💝 Connect (Serious Relationships)
 
-# External Services
-AWS_ACCESS_KEY_ID=your-aws-key
-STRIPE_SECRET_KEY=your-stripe-key
-```
+- **Daily Curated Matches**: Quality over quantity (5 matches/day)
+- **Compatibility Algorithm**: Deep matching based on values and goals
+- **Video Dating**: Built-in video calls for virtual dates
+- **Conversation Depth**: AI-powered conversation starters
+- **Two-Week Rule**: Chat for 2 weeks before meeting
+- **Relationship Coach**: AI guidance for building connections
 
-## Contributing
+### 💍 Forever (Marriage-Focused)
+
+- **Comprehensive Profiles**: Detailed life goals and values
+- **Video Interviews**: Structured compatibility assessments
+- **Reference System**: Friends and family can vouch for you
+- **Background Checks**: Optional verification for safety
+- **Life Planning**: 5-year goal alignment tools
+- **Family Introduction**: Controlled family member access
+
+## 🛡 Safety Features (All Tiers)
+
+- Photo and profile verification
+- AI-powered inappropriate content detection
+- In-app reporting and blocking
+- Date check-in system
+- Emergency contact integration
+- Background check options (Forever tier)
+
+## 💰 Monetization Strategy
+
+### Subscription Tiers
+
+| Feature | Spark Free | Spark Premium | Connect | Forever |
+|---------|------------|---------------|---------|---------|
+| Daily Likes | 50 | Unlimited | 20 | 10 |
+| See Who Liked You | ❌ | ✅ | ✅ | ✅ |
+| Advanced Filters | ❌ | ✅ | ✅ | ✅ |
+| Video Calls | ❌ | ❌ | ✅ | ✅ |
+| AI Coach | ❌ | ❌ | ✅ | ✅ |
+| Background Check | ❌ | ❌ | ❌ | ✅ |
+| Price | Free | $9.99/mo | $19.99/mo | $29.99/mo |
+
+## 🔧 Technology Stack
+
+### Backend
+
+- **Framework**: NestJS (Node.js + TypeScript)
+- **Databases**: PostgreSQL (primary), Redis (cache), MongoDB (chat)
+- **Authentication**: JWT with Passport.js
+- **API**: RESTful with Swagger documentation
+- **Real-time**: Socket.io for chat and notifications
+
+### Frontend
+
+- **Framework**: React Native with Expo
+- **State Management**: Redux Toolkit with Redux Persist
+- **Navigation**: React Navigation 6
+- **UI**: Custom components with tier-specific themes
+- **API Client**: Axios with interceptors
+
+### Infrastructure
+
+- **Containerization**: Docker & Docker Compose
+- **Cloud**: AWS (planned)
+- **CI/CD**: GitHub Actions (planned)
+- **Monitoring**: DataDog/Sentry (planned)
+
+## 📈 Success Metrics
+
+### User Metrics
+
+- **User Acquisition Cost**: Target < $5
+- **Monthly Active Users**: 20%+ growth
+- **Gender Balance**: Within 60/40 ratio
+- **Tier Distribution**: 50% Spark, 35% Connect, 15% Forever
+
+### Engagement Metrics
+
+- **Daily Active Users**: 40%+ for Spark, 30%+ for Connect, 25%+ for Forever
+- **Match-to-Date Conversion**: 15%+ overall
+- **User Retention (3-month)**: 40%+
+- **Messages per Match**: 20+ for Connect/Forever
+
+### Business Metrics
+
+- **Paid Conversion**: 15%+ for Spark, 40%+ for Connect, 80%+ for Forever
+- **Average Revenue per User**: $15+ monthly
+- **Churn Rate**: < 10% monthly
+- **Success Stories**: 100+ per month
+
+## 🗺 Roadmap
+
+### Phase 1: MVP (Current)
+
+- ✅ Basic authentication and profiles
+- ✅ Tier-based navigation
+- ✅ Core matching functionality
+- ✅ Basic chat system
+- 🔄 Photo upload and verification
+
+### Phase 2: Beta (Next 3 months)
+
+- [ ] Video calling integration
+- [ ] AI matching algorithms
+- [ ] Event system for Spark
+- [ ] Compatibility reports for Connect
+- [ ] Interview system for Forever
+
+### Phase 3: Launch (6 months)
+
+- [ ] Push notifications
+- [ ] Advanced safety features
+- [ ] Payment integration
+- [ ] Analytics dashboard
+- [ ] Marketing automation
+
+### Phase 4: Growth (9-12 months)
+
+- [ ] International expansion
+- [ ] AI relationship coach
+- [ ] VR dating experiences
+- [ ] Advanced gamification
+- [ ] B2B partnerships
+
+## 🤝 Contributing
 
 This is currently a private project. Contributing guidelines will be added when the project becomes open source.
 
-## License
+### Development Guidelines
+
+- Follow TypeScript best practices
+- Write unit tests for new features
+- Update documentation for API changes
+- Use conventional commits
+- Create feature branches
+
+## 📄 License
 
 All rights reserved. This project is proprietary and confidential.
 
+## 🙏 Acknowledgments
+
+- NestJS team for the amazing framework
+- Expo team for simplifying React Native development
+- Our future users for believing in purposeful dating
+
+## 📞 Contact
+
+For inquiries about this project:
+
+- Email: <contact@threetiersdating.com>
+- Website: Coming soon
+
+## Troubleshooting
+
+### Error: EMFILE: too many open files, watch
+
+This is a common macOS issue where the system runs out of file descriptors for file watching. Let me fix this for you:
+
+```sh
+sudo launchctl limit maxfiles
+
+ulimit -n 65536
+npm start
+```
+
 ---
 
-**Ready to launch your three-tier dating app? This NestJS backend provides the solid foundation you need!** 🚀
+**Built with ❤️ to revolutionize online dating by creating purposeful connections.**
