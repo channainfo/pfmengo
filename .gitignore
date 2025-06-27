@@ -48,6 +48,13 @@ ehthumbs.db
 desktop.ini
 *.iml
 
+# ───── Next.js (web/) ─────
+web/.next/
+web/node_modules/
+web/out/
+web/.env
+web/.env.*
+
 # ───── Build Artifacts ─────
 *.apk
 *.aab
