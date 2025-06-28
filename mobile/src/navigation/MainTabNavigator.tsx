@@ -25,7 +25,7 @@ import ForeverPlanningScreen from '../screens/forever/ForeverPlanningScreen';
 
 // Shared Screens
 import MessagesScreen from '../screens/shared/MessagesScreen';
-import ProfileScreen from '../screens/shared/ProfileScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();

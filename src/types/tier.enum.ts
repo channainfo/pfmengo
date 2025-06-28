@@ -1,7 +1,7 @@
 export enum TierType {
-  SPARK = 'spark',
-  CONNECT = 'connect',
-  FOREVER = 'forever',
+  SPARK = "spark",
+  CONNECT = "connect",
+  FOREVER = "forever",
 }
 
 export interface TierFeatures {

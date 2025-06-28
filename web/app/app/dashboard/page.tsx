@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { 
@@ -8,64 +7,29 @@ import {
   HeartIcon, 
   UserGroupIcon,
   FireIcon,
-  ClockIcon,
   ChatBubbleLeftRightIcon,
   UserIcon,
-  Cog6ToothIcon,
   ArrowRightOnRectangleIcon
 } from "@heroicons/react/24/outline";
-
-interface User {
-  id: string;
-  email: string;
-  firstName: string;
-  lastName?: string;
-  tier: 'spark' | 'connect' | 'forever';
-}
+import { useAppDispatch, useAppSelector } from "../../../lib/hooks";
+import { logout } from "../../../lib/features/auth/authSlice";
 
 export default function DashboardPage() {
   const router = useRouter();
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Check authentication and get user data
-    const token = localStorage.getItem('token');
-    const userData = localStorage.getItem('user');
-
-    if (!token || !userData) {
-      router.push('/auth/login');
-      return;
-    }
-
-    try {
-      const parsedUser = JSON.parse(userData);
-      setUser(parsedUser);
-    } catch (error) {
-      console.error('Error parsing user data:', error);
-      router.push('/auth/login');
-    } finally {
-      setLoading(false);
-    }
-  }, [router]);
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.auth);
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    localStorage.removeItem('rememberMe');
-    router.push('/');
+    dispatch(logout());
+    router.push('/auth/login');
   };
 
-  if (loading) {
+  if (!user) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 flex items-center justify-center">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-purple-600"></div>
       </div>
     );
-  }
-
-  if (!user) {
-    return null;
   }
 
   const tierConfig = {
@@ -228,7 +192,10 @@ export default function DashboardPage() {
           </div>
 
           {/* Profile */}
-          <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow cursor-pointer">
+          <div 
+            className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
+            onClick={() => router.push('/app/profile')}
+          >
             <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <UserIcon className="w-8 h-8 text-purple-600" />
             </div>
@@ -236,9 +203,26 @@ export default function DashboardPage() {
             <p className="text-gray-600 text-center mb-4">
               Update your profile and photos
             </p>
-            <button className="w-full py-3 px-4 rounded-lg font-semibold text-white bg-gradient-to-r from-purple-500 to-purple-600 hover:shadow-lg transform hover:scale-105 transition-all duration-200">
-              Edit Profile
-            </button>
+            <div className="space-y-2">
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  router.push('/app/profile');
+                }}
+                className="w-full py-3 px-4 rounded-lg font-semibold text-white bg-gradient-to-r from-purple-500 to-purple-600 hover:shadow-lg transform hover:scale-105 transition-all duration-200"
+              >
+                Edit Profile
+              </button>
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  router.push('/app/profile/wizard?step=1');
+                }}
+                className="w-full py-2 px-4 rounded-lg font-medium text-purple-600 border border-purple-500 hover:bg-purple-50 transition-all duration-200"
+              >
+                Setup Wizard
+              </button>
+            </div>
           </div>
         </motion.div>
 

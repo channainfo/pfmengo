@@ -1,9 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { User } from '../../database/entities/user.entity';
-import { Profile } from '../../database/entities/profile.entity';
-import { RegisterDto } from '../../auth/dto/register.dto';
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { User } from "../../database/entities/user.entity";
+import { Profile } from "../../database/entities/profile.entity";
+import { RegisterDto } from "../../auth/dto/register.dto";
 
 @Injectable()
 export class UsersService {
@@ -41,35 +41,34 @@ export class UsersService {
   }
 
   async findById(id: string): Promise<User | null> {
-    return this.usersRepository.findOne({
-      where: { id },
-      relations: ['profile'],
-    });
+    return this.usersRepository
+      .createQueryBuilder("user")
+      .leftJoinAndSelect("user.profile", "profile")
+      .where("user.id = :id", { id })
+      .getOne();
   }
 
   async findByEmail(email: string): Promise<User | null> {
-    return this.usersRepository.findOne({
-      where: { email },
-      relations: ['profile'],
-    });
+    return this.usersRepository
+      .createQueryBuilder("user")
+      .leftJoinAndSelect("user.profile", "profile")
+      .where("user.email = :email", { email })
+      .getOne();
   }
 
   async updateTier(userId: string, newTier: string): Promise<User> {
     const user = await this.findById(userId);
     if (!user) {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException("User not found");
     }
 
     user.tier = newTier as any;
     user.tierSwitchedAt = new Date();
 
     await this.usersRepository.save(user);
-    
+
     // Update profile tier
-    await this.profilesRepository.update(
-      { userId },
-      { tier: newTier as any }
-    );
+    await this.profilesRepository.update({ userId }, { tier: newTier as any });
 
     return this.findById(userId);
   }
@@ -77,11 +76,11 @@ export class UsersService {
   async getProfile(userId: string): Promise<Profile> {
     const profile = await this.profilesRepository.findOne({
       where: { userId },
-      relations: ['user'],
+      relations: ["user"],
     });
 
     if (!profile) {
-      throw new NotFoundException('Profile not found');
+      throw new NotFoundException("Profile not found");
     }
 
     return profile;

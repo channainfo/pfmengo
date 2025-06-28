@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
-import { TierType } from '../../types/tier.enum';
+import { Injectable } from "@nestjs/common";
+import { TierType } from "../../types/tier.enum";
 
 interface CreateEventDto {
   title: string;
@@ -20,13 +20,13 @@ export class EventsService {
     // 1. Validate user tier
     // 2. Create event in database
     // 3. Send notifications to nearby users
-    
+
     return {
-      id: 'event-uuid',
+      id: "event-uuid",
       ...eventData,
       createdBy: userId,
       currentAttendees: 0,
-      status: 'upcoming',
+      status: "upcoming",
     };
   }
 
@@ -43,26 +43,26 @@ export class EventsService {
 
     return [
       {
-        id: '1',
-        title: 'Wine & Paint Night',
-        description: 'Creative evening with fellow singles',
-        eventType: 'social',
-        venueName: 'Art Studio Downtown',
+        id: "1",
+        title: "Wine & Paint Night",
+        description: "Creative evening with fellow singles",
+        eventType: "social",
+        venueName: "Art Studio Downtown",
         startsAt: new Date(),
         currentAttendees: 12,
         maxAttendees: 20,
-        distance: '0.8 miles',
+        distance: "0.8 miles",
       },
       {
-        id: '2',
-        title: 'Speed Dating - Young Professionals',
-        description: '3-minute rounds, ages 25-35',
-        eventType: 'dating',
-        venueName: 'Rooftop Lounge',
+        id: "2",
+        title: "Speed Dating - Young Professionals",
+        description: "3-minute rounds, ages 25-35",
+        eventType: "dating",
+        venueName: "Rooftop Lounge",
         startsAt: new Date(),
         currentAttendees: 8,
         maxAttendees: 16,
-        distance: '1.2 miles',
+        distance: "1.2 miles",
       },
     ];
   }
@@ -76,7 +76,7 @@ export class EventsService {
 
     return {
       success: true,
-      message: 'Successfully joined event',
+      message: "Successfully joined event",
     };
   }
 
@@ -88,7 +88,7 @@ export class EventsService {
 
     return {
       success: true,
-      message: 'Successfully left event',
+      message: "Successfully left event",
     };
   }
 

@@ -20,7 +20,20 @@
       "Bash(node:*)",
       "Bash(sudo launchctl:*)",
       "Bash(npm start:*)",
-      "Bash(brew install:*)"
+      "Bash(brew install:*)",
+      "Bash(npm run migration:run:*)",
+      "Bash(ls:*)",
+      "Bash(npm run dev:*)",
+      "Bash(npm run start:prod:*)",
+      "Bash(grep:*)",
+      "Bash(npm run migration:show:*)",
+      "Bash(npm run:*)",
+      "Bash(npx eslint:*)",
+      "Bash(npx tsc:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(didn 't match the client\" error by ensuring consistent rendering \nbetween server and client.\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(find:*)"
     ],
     "deny": []
   }

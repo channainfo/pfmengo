@@ -134,24 +134,32 @@ export default function Home() {
         {/* Animated Hearts Background */}
         <div className="absolute inset-0 pointer-events-none">
           {[...Array(6)].map((_, i) => {
-            const initialX = typeof window !== 'undefined' ? Math.random() * window.innerWidth : Math.random() * 1200;
-            const animateX = typeof window !== 'undefined' ? Math.random() * window.innerWidth : Math.random() * 1200;
-            const initialY = typeof window !== 'undefined' ? window.innerHeight + 100 : 900;
+            // Use deterministic positions and durations based on index
+            const positions = [
+              { x: '10%', animateX: '20%', duration: 18 },
+              { x: '30%', animateX: '15%', duration: 22 },
+              { x: '50%', animateX: '65%', duration: 20 },
+              { x: '70%', animateX: '45%', duration: 25 },
+              { x: '25%', animateX: '40%', duration: 19 },
+              { x: '85%', animateX: '90%', duration: 23 }
+            ];
+            
+            const pos = positions[i % positions.length];
             
             return (
               <motion.div
                 key={i}
                 className="absolute"
-                initial={{ 
-                  x: initialX,
-                  y: initialY 
+                style={{
+                  left: pos.x,
+                  bottom: '-50px'
                 }}
                 animate={{ 
-                  y: -100,
-                  x: animateX 
+                  y: [0, -1500],
+                  x: [0, 100, -100, 0]
                 }}
                 transition={{
-                  duration: 15 + Math.random() * 10,
+                  duration: pos.duration,
                   repeat: Infinity,
                   delay: i * 2,
                   ease: "linear"
