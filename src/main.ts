@@ -22,7 +22,7 @@ async function bootstrap() {
       'http://localhost:19000',
       'http://localhost:19001',
       'http://localhost:19002',
-      'http://localhost:8081',
+      'http://localhost:8800',
       'http://localhost:3000',
       'http://localhost:3001',
       '*'
@@ -52,7 +52,7 @@ async function bootstrap() {
 
   const port = process.env.PORT || 3001;
   await app.listen(port, '0.0.0.0');
-  
+
   console.log(`🚀 Application running on: http://localhost:${port}`);
   console.log(`📚 API Documentation: http://localhost:${port}/api-docs`);
 }
