@@ -1,4 +1,5 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 interface Profile {
@@ -6,13 +7,33 @@ interface Profile {
   userId: string;
   bio?: string;
   age: number;
-  location?: string;
+  latitude?: number;
+  longitude?: number;
+  city?: string;
+  country?: string;
   interests: string[];
   photos: string[];
   isComplete: boolean;
-  sparkProfile?: any;
-  connectProfile?: any;
-  foreverProfile?: any;
+  wizardStep: number;
+  sparkProfile?: {
+    lookingFor: string;
+    availability: string;
+    activities: string[];
+  };
+  connectProfile?: {
+    relationshipGoals: string;
+    values: string[];
+    lifestyle: string;
+    education?: string;
+    profession?: string;
+  };
+  foreverProfile?: {
+    marriageTimeline: string;
+    familyPlans: string;
+    religiousViews?: string;
+    financialGoals: string;
+    livingPreferences: string;
+  };
 }
 
 interface ProfileState {
@@ -32,14 +53,18 @@ export const fetchProfileAsync = createAsyncThunk(
   'profile/fetchProfile',
   async (_, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:3000/api/v1/profiles/me', {
+      const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api/v1'}/profiles/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       return response.data;
     } catch (error: any) {
+      // If profile doesn't exist (404), return null instead of rejecting
+      if (error.response?.status === 404) {
+        return null;
+      }
       return rejectWithValue(error.response?.data?.message || 'Failed to fetch profile');
     }
   }
@@ -49,8 +74,8 @@ export const updateProfileAsync = createAsyncThunk(
   'profile/updateProfile',
   async (profileData: Partial<Profile>, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem('token');
-      const response = await axios.put('http://localhost:3000/api/v1/profiles/basic', profileData, {
+      const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+      const response = await axios.put(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api/v1'}/profiles/basic`, profileData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -1,10 +1,17 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToOne } from 'typeorm';
-import { TierType } from '../../types/tier.enum';
-import { Profile } from './profile.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToOne,
+} from "typeorm";
+import { TierType } from "../../types/tier.enum";
+import { Profile } from "./profile.entity";
 
-@Entity('users')
+@Entity("users")
 export class User {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column({ unique: true })
@@ -17,18 +24,18 @@ export class User {
   password: string;
 
   @Column({
-    type: 'enum',
+    type: "enum",
     enum: TierType,
   })
   tier: TierType;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: "timestamp", nullable: true })
   tierSwitchedAt: Date;
 
-  @Column({ default: 'active' })
-  status: 'active' | 'suspended' | 'deleted';
+  @Column({ default: "active" })
+  status: "active" | "suspended" | "deleted";
 
-  @OneToOne(() => Profile, profile => profile.user, { cascade: true })
+  @OneToOne(() => Profile, (profile) => profile.user, { cascade: true })
   profile: Profile;
 
   @CreateDateColumn()

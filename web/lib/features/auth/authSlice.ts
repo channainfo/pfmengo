@@ -4,7 +4,7 @@ import axios from 'axios';
 interface User {
   id: string;
   email: string;
-  firstName: string;
+  firstName?: string;
   lastName?: string;
   tier: 'spark' | 'connect' | 'forever';
 }
@@ -15,6 +15,7 @@ interface AuthState {
   isLoading: boolean;
   error: string | null;
   isAuthenticated: boolean;
+  isInitialized: boolean;
 }
 
 const initialState: AuthState = {
@@ -23,6 +24,7 @@ const initialState: AuthState = {
   isLoading: false,
   error: null,
   isAuthenticated: false,
+  isInitialized: false,
 };
 
 // Async thunks
@@ -84,8 +86,9 @@ const authSlice = createSlice({
         
         if (token && userData) {
           try {
+            const parsedUser = JSON.parse(userData);
             state.token = token;
-            state.user = JSON.parse(userData);
+            state.user = parsedUser;
             state.isAuthenticated = true;
           } catch (error) {
             // Clear invalid data
@@ -93,6 +96,8 @@ const authSlice = createSlice({
             localStorage.removeItem('user');
           }
         }
+        // Mark as initialized regardless of whether we found data
+        state.isInitialized = true;
       }
     },
   },

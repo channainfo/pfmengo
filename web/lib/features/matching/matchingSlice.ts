@@ -40,7 +40,7 @@ export const fetchDailyMatchesAsync = createAsyncThunk(
   'matching/fetchDailyMatches',
   async (_, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem('token');
+      const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
       const response = await axios.get('http://localhost:3000/api/v1/matching/daily', {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -57,7 +57,7 @@ export const likeUserAsync = createAsyncThunk(
   'matching/likeUser',
   async (targetUserId: string, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem('token');
+      const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
       const response = await axios.post(
         'http://localhost:3000/api/v1/matching/like',
         { targetUserId },
@@ -78,7 +78,7 @@ export const passUserAsync = createAsyncThunk(
   'matching/passUser',
   async (targetUserId: string, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem('token');
+      const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
       const response = await axios.post(
         'http://localhost:3000/api/v1/matching/pass',
         { targetUserId },

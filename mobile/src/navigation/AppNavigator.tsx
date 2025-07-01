@@ -16,7 +16,7 @@ import TierSelectionScreen from '../screens/auth/TierSelectionScreen';
 import MainTabNavigator from './MainTabNavigator';
 
 // Shared Screens
-import ProfileScreen from '../screens/shared/ProfileScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 import ChatScreen from '../screens/shared/ChatScreen';
 import SettingsScreen from '../screens/shared/SettingsScreen';
 
